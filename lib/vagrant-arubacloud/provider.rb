@@ -12,6 +12,10 @@ module VagrantPlugins
         return Actions.send(name) if Actions.respond_to?(name)
 
       end
+
+      def to_s
+        'ArubaCloud IaaS'
+      end
     end
 
   end

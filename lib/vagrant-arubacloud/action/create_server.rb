@@ -6,6 +6,7 @@ require 'vagrant/util/retryable'
 module VagrantPlugins
   module ArubaCloud
     module Action
+
       # Create a new server
       class CreateServer
         include Vagrant::Util::Retryable
@@ -44,10 +45,18 @@ module VagrantPlugins
           # Create the server
           server = env[:arubacloud_compute].servers.create(options)
 
-          # Wait for the server to finish building
-          env[:ui].info('Waiting for the server to be created...')
+          # Wait for ssh to be ready
+          env[:ui].info('Waiting for the server to be ready...')
+          user = env[:machine].config.ssh.username
 
+          retryable(:tries => 120, :sleep => 10) do
+            next if env[:interrupted]
+            raise 'not ready' unless env[:machine].communicate.ready?
+          end
+
+          @app.call(env)
         end
+
       end
     end
   end

@@ -3,7 +3,7 @@ module VagrantPlugins
   module ArubaCloud
     module Actions
       # Access top level stuff
-      include Vagrant::Action::Builtit
+      include Vagrant::Action::Builtin
 
       def self.action_destroy
 
