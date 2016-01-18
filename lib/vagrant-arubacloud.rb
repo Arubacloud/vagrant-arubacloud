@@ -1,8 +1,13 @@
-require 'vagrant/vagrant-arubacloud/version'
+require 'vagrant-arubacloud/version'
 require 'vagrant-arubacloud/plugin'
 
-module Vagrant
-  module Arubacloud
+require 'pathname'
+
+module VagrantPlugins
+  module ArubaCloud
+
+    lib_path = Pathname.new(File.expand_path('../vagrant-arubacloud', __FILE__))
+    autoload :Errors, lib_path.join('errors')
 
     # This initializes the logging so that our logs are outputted at
     # the same level as Vagrant core logs.
@@ -30,6 +35,13 @@ module Vagrant
         logger.outputters = Log4r::Outputter.stderr
         logger.level = level
         logger = nil
+      end
+
+      # This returns the path to the source of this plugin.
+      #
+      # @return [Pathname]
+      def self.source_root
+        @source_root ||= Pathname.new(File.expand_path('../../', __FILE__))
       end
     end
   end

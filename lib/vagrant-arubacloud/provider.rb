@@ -9,8 +9,7 @@ module VagrantPlugins
       end
 
       def action(name)
-        return Actions.send(name) if Actions.respond_to?(name)
-
+        Actions.send(name) if Actions.respond_to?(name)
       end
 
       def to_s

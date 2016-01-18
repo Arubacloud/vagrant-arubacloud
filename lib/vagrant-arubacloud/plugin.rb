@@ -8,7 +8,7 @@ if Vagrant::VERSION < '1.2.0'
   raise 'ArubaCloud IaaS provider is only compatible with Vagrant 1.2+'
 end
 
-module VagrantPlugin
+module VagrantPlugins
   module ArubaCloud
     class Plugin < Vagrant.plugin('2')
       # noinspection RubyArgCount
@@ -22,18 +22,18 @@ module VagrantPlugin
         Config
       end
 
-      provider(:arubacloud, { :box_optional => true, parallel: true }) do
+      provider(:arubacloud, { :box_optional => true, :parallel => false }) do
         ArubaCloud.init_logging
 
         require_relative 'provider'
         Provider
       end
 
-      command('arubacloud') do
-        require_relative 'command/root'
-        Command::Root
-      end
-    end
+      #command('arubacloud') do
+      #  require_relative 'command/root'
+      #  Command::Root
+      #end
+    end # Plugin
 
-  end
-end
+  end # ArubaCloud
+end # VagrantPlugin

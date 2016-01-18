@@ -1,5 +1,5 @@
 require 'vagrant'
-require 'fog'
+require 'fog/arubacloud'
 
 module VagrantPlugin
   module ArubaCloud
@@ -34,6 +34,7 @@ module VagrantPlugin
       def initialize
         @arubacloud_username = UNSET_VALUE
         @arubacloud_password = UNSET_VALUE
+        @admin_password = UNSET_VALUE
         @url = UNSET_VALUE
         @server_name = UNSET_VALUE
         @template_id = UNSET_VALUE
@@ -43,6 +44,7 @@ module VagrantPlugin
       def finalize!
         @arubacloud_username = nil if @arubacloud_username == UNSET_VALUE
         @arubacloud_password = nil if @arubacloud_password == UNSET_VALUE
+        @admin_password = nilif @admin_password == UNSET_VALUE
         @url = nil if @url == UNSET_VALUE
         @server_name = nil if @server_name == UNSET_VALUE
         @template_id = nil if @template_id == UNSET_VALUE
@@ -54,6 +56,7 @@ module VagrantPlugin
 
         errors << 'An Username is required.' unless @arubacloud_username
         errors << 'A Password is required.' unless @arubacloud_password
+        errors << 'An SSH root Password is required' unless @admin_password
         errors << 'A template_id is required.' unless @template_id
         errors << 'A package_id is required.' unless @package_id
 

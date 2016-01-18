@@ -8,5 +8,5 @@ group :development do
 end
 
 group :plugins do
-  gem "vagrant-arubacloud", path: "."
+  gem 'vagrant-arubacloud', path: '.'
 end
