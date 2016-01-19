@@ -1,5 +1,5 @@
 module Vagrant
-  module Arubacloud
+  module ArubaCloud
     VERSION = '0.0.1'
   end
 end

@@ -1,5 +1,6 @@
 require 'fog'
 require 'log4r'
+require 'pp'
 
 require 'vagrant/util/retryable'
 

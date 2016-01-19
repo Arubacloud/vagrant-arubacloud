@@ -36,4 +36,4 @@ module VagrantPlugins
     end # Plugin
 
   end # ArubaCloud
-end # VagrantPlugin
+end # VagrantPlugins

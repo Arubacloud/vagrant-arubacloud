@@ -2,7 +2,7 @@ require 'vagrant/action/builder'
 
 module VagrantPlugins
   module ArubaCloud
-    module Actions
+    module Action
 
       # Access top level stuff
       include Vagrant::Action::Builtin
@@ -118,11 +118,12 @@ module VagrantPlugins
 
       # The autoload farm
       action_root = Pathname.new(File.expand_path('../action', __FILE__))
-      autoload :ConnectRackspace, action_root.join('connect_arubacloud')
+      autoload :ConnectArubaCloud, action_root.join('connect_arubacloud')
       autoload :CreateServer, action_root.join('create_server')
       autoload :DeleteServer, action_root.join('delete_server')
       autoload :IsCreated, action_root.join('is_created')
       autoload :MessageNotCreated, action_root.join('message_not_created')
+      autoload :MessageAlreadyCreated, action_root.join('message_already_created')
       autoload :ReadSSHInfo, action_root.join('read_ssh_info')
       autoload :ReadState, action_root.join('read_state')
       # autoload :RunInitScript, action_root.join("run_init_script")

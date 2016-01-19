@@ -14,13 +14,13 @@ module VagrantPlugins
         def call(env)
           # Set the datacenter
           config = env[:machine].provider_config
-          username = config.username
-          password = config.password
+          arubacloud_username = config.arubacloud_username
+          arubacloud_password = config.arubacloud_password
 
           params = {
               :provider => :arubacloud,
-              :arubacloud_username => username,
-              :arubacloud_password => password,
+              :arubacloud_username => arubacloud_username,
+              :arubacloud_password => arubacloud_password,
           }
 
           if config.url

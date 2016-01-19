@@ -1,7 +1,7 @@
 require 'vagrant'
 require 'fog/arubacloud'
 
-module VagrantPlugin
+module VagrantPlugins
   module ArubaCloud
 
     class Config < Vagrant.plugin('2', :config)
@@ -29,7 +29,7 @@ module VagrantPlugin
       attr_accessor :package_id
 
       # The admin password of the vm (root user)
-      attr_accessor :admin_passwd
+      attr_accessor :admin_password
 
       def initialize
         @arubacloud_username = UNSET_VALUE
@@ -44,7 +44,7 @@ module VagrantPlugin
       def finalize!
         @arubacloud_username = nil if @arubacloud_username == UNSET_VALUE
         @arubacloud_password = nil if @arubacloud_password == UNSET_VALUE
-        @admin_password = nilif @admin_password == UNSET_VALUE
+        @admin_password = nil if @admin_password == UNSET_VALUE
         @url = nil if @url == UNSET_VALUE
         @server_name = nil if @server_name == UNSET_VALUE
         @template_id = nil if @template_id == UNSET_VALUE
@@ -63,6 +63,6 @@ module VagrantPlugin
         {'ArubaCloud Provider' => errors}
       end
 
-    end
-  end
-end
+    end # Config
+  end # ArubaCloud
+end # VagrantPlugins

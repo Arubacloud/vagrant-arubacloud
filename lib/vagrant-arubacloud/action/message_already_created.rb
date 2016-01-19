@@ -1,17 +1,13 @@
-require 'log4r'
-
 module VagrantPlugins
   module ArubaCloud
     module Action
-      class IsCreated
+      class MessageAlreadyCreated
         def initialize(app, env)
           @app = app
-          @logger = Log4r::Logger.new('vagrant_arubacloud::action::is_created')
         end
 
         def call(env)
-          env[:result] = env[:machine].vm.id?(nil)
-          env[:ui].info(env[:result].to_s)
+          env[:ui].info('vagrant_arubacloud.already_created')
           @app.call(env)
         end
       end

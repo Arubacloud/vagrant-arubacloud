@@ -18,10 +18,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "dummy"
 
   config.vm.define :ubuntu do |ubuntu|
+    ubuntu.ssh.username = 'root'
+    ubuntu.ssh.password = 'Fuffa123'
     ubuntu.vm.provider :arubacloud do |ac|
-      ac.username = ENV['AC_USERNAME']
-      ac.password = ENV['AC_PASSWORD']
+      ac.arubacloud_username = ENV['AC_USERNAME']
+      ac.arubacloud_password = ENV['AC_PASSWORD']
       ac.admin_password = ENV['AC_ADMIN_PASSWORD']
+      ac.server_name = 'ciao'
+      ac.template_id = 31
+      ac.package_id = 1
     end
   end
 
