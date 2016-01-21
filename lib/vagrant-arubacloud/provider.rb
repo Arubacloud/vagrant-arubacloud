@@ -1,6 +1,8 @@
 require 'vagrant'
 
 require 'vagrant-arubacloud/action'
+
+
 module VagrantPlugins
   module ArubaCloud
     class Provider < Vagrant.plugin('2', :provider)
@@ -27,7 +29,7 @@ module VagrantPlugins
 
         # Get the short and long description
         short = "vagrant_arubacloud.states.short_#{state_id}"
-        long  = "vagrant_arubacloud.states.long_#{state_id}"
+        long = "vagrant_arubacloud.states.long_#{state_id}"
 
         # Return the MachineState object
         Vagrant::MachineState.new(state_id, short, long)

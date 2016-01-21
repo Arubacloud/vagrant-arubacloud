@@ -8,7 +8,7 @@ module VagrantPlugins
       include Vagrant::Action::Builtin
 
       def self.action_destroy
-        Vagrant::Action::Builder.new.ap do |b|
+        Vagrant::Action::Builder.new.tap do |b|
           b.use ConfigValidate
           b.use Call, IsCreated do |env, b1|
             unless env[:result]
@@ -29,6 +29,20 @@ module VagrantPlugins
         end
       end
 
+      def self.action_halt
+        Vagrant::Action::Builder.new.tap do |b|
+          b.use ConfigValidate #shame on you
+          b.use Call, IsCreated do |env, b1|
+            unless env[:result]
+              b1.use MessageNotCreated
+              next
+            end
+            b1.use ConnectArubaCloud #shame on you too
+            b1.use HaltServer
+            b1.use Message, ' The server will be powered off.'
+          end
+        end
+      end
 
       def self.action_provision
         Vagrant::Action::Builder.new.tap do |b|
@@ -120,6 +134,7 @@ module VagrantPlugins
       action_root = Pathname.new(File.expand_path('../action', __FILE__))
       autoload :ConnectArubaCloud, action_root.join('connect_arubacloud')
       autoload :CreateServer, action_root.join('create_server')
+      autoload :HaltServer, action_root.join('halt_server')
       autoload :DeleteServer, action_root.join('delete_server')
       autoload :IsCreated, action_root.join('is_created')
       autoload :MessageNotCreated, action_root.join('message_not_created')

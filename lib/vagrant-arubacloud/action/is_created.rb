@@ -10,8 +10,7 @@ module VagrantPlugins
         end
 
         def call(env)
-          env[:result] = env[:machine].vm.id?(nil)
-          env[:ui].info(env[:result].to_s)
+          env[:result] = env[:machine].id != nil
           @app.call(env)
         end
       end

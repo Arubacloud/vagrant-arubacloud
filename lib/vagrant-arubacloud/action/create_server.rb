@@ -19,7 +19,6 @@ module VagrantPlugins
 
         def call(env)
           config         = env[:machine].provider_config
-          machine_config = env[:machine].config
 
           env[:ui].info('Creating machine...')
 
@@ -27,32 +26,38 @@ module VagrantPlugins
           server_name = config.server_name || env[:machine].name
 
           # Output the settings we're going to use to the user
-          env[:ui].info('Launching a server with the following settings...')
+          env[:ui].info('Creating a server with the following settings...')
           env[:ui].info(" -- Name: #{server_name}")
-          env[:ui].info(" -- Package: #{machine_config.package_id}")
-          env[:ui].info(" -- OS Template: #{machine_config.template_id}")
+          env[:ui].info(" -- Root Password: #{config.admin_password}")
+          env[:ui].info(" -- Package: #{config.package_id}")
+          env[:ui].info(" -- OS Template: #{config.template_id}")
 
           # Build the options to create
           options = {
               :name => server_name,
               :vm_type => 'smart',
-              :admin_passwd => machine_config.admin_passwd,
+              :admin_passwd => config.admin_password,
               :cpu => 1,
               :memory => 1,
-              :tempalte_id => machine_config.template_id,
-              :package_id => machine_config.package_id
+              :template_id => config.template_id,
+              :package_id => config.package_id
           }
 
           # Create the server
           server = env[:arubacloud_compute].servers.create(options)
 
+          # Store id of the machine
+          env[:machine].id = server.id
+
           # Wait for ssh to be ready
           env[:ui].info('Waiting for the server to be ready...')
           user = env[:machine].config.ssh.username
 
-          retryable(:tries => 120, :sleep => 10) do
+          retryable(:tries => 10, :sleep => 1) do
             next if env[:interrupted]
             raise 'not ready' unless env[:machine].communicate.ready?
+
+            server.wait_for { ready? }
           end
 
           @app.call(env)

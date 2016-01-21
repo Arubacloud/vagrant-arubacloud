@@ -8,6 +8,7 @@ module VagrantPlugins
       class ReadState
         def initialize(app, env)
           @app    = app
+          @env    = env
           @logger = Log4r::Logger.new('vagrant_arubacloud::action::read_state')
         end
 
@@ -24,13 +25,18 @@ module VagrantPlugins
 
           # Find the machine
           server = arubacloud.servers.get(machine.id)
-          if server.nil? || server.state == server.DELETED
+          unless server.instance_of? Fog::Compute::ArubaCloud::Server
+            msg = "VagrantPlugins::ArubaCloud::Action::ReadState.read_state, 'server' must be Fog::Compute::ArubaCloud::Server, got: #{server.class}"
+            @logger.critical("#{msg}")
+          end
+          if server.nil? || server.state == Fog::Compute::ArubaCloud::Server::DELETED
             # The machine can't be found
             @logger.info('Machine not found or deleted, assuming it got destroyed.')
             machine.id = nil
             return :not_created
           end
 
+          @env[:ui].output("VagrantPlugins::ArubaCloud::Action::ReadState.read_state, server state : #{server.state}")
           # Return the state
           server.state
         end

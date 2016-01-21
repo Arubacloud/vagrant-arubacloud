@@ -2,11 +2,14 @@
 # vi: set ft=ruby :
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = '2'
 
 %w{AC_USERNAME AC_PASSWORD AC_ADMIN_PASSWORD}.each do |var|
   abort "Please set the environment variable #{var} in order to run the test" unless ENV.key? var
 end
+
+require 'securerandom'
+rnd_string = SecureRandom.hex(2)
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -19,14 +22,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :ubuntu do |ubuntu|
     ubuntu.ssh.username = 'root'
-    ubuntu.ssh.password = 'Fuffa123'
+    ubuntu.ssh.password = 'Test123'
     ubuntu.vm.provider :arubacloud do |ac|
       ac.arubacloud_username = ENV['AC_USERNAME']
       ac.arubacloud_password = ENV['AC_PASSWORD']
-      ac.admin_password = ENV['AC_ADMIN_PASSWORD']
-      ac.server_name = 'ciao'
-      ac.template_id = 31
+      ac.admin_password = 'Test123'
+      ac.template_id = '415'
       ac.package_id = 1
+      ac.server_name = "ubuntu#{rnd_string}"
     end
   end
 
