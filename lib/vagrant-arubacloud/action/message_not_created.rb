@@ -7,7 +7,7 @@ module VagrantPlugins
         end
 
         def call(env)
-          env[:ui].info('vagrant_rackspace.not_created')
+          env[:ui].info('Server is not present, assuming not created... Bailout!')
           @app.call(env)
         end
       end

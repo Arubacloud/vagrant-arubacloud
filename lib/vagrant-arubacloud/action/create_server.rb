@@ -53,12 +53,15 @@ module VagrantPlugins
           env[:ui].info('Waiting for the server to be ready...')
           user = env[:machine].config.ssh.username
 
-          retryable(:tries => 10, :sleep => 1) do
+          retryable(:tries => 10, :sleep => 60) do
             next if env[:interrupted]
-            raise 'not ready' unless env[:machine].communicate.ready?
 
-            server.wait_for { ready? }
+            @logger.debug("create_server: ready? #{server.ready?}")
+            @logger.debug("create_server: server.state: #{server.state}")
+            server.wait_for(5) { ready? } # you shall not pass!
           end
+
+          env[:ui].info(' The server is ready!')
 
           @app.call(env)
         end
