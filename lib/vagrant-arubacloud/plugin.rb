@@ -29,10 +29,10 @@ module VagrantPlugins
         Provider
       end
 
-      #command('arubacloud') do
-      #  require_relative 'command/root'
-      #  Command::Root
-      #end
+      command('arubacloud') do
+        require_relative 'command/root'
+        Command::Root
+      end
     end # Plugin
 
   end # ArubaCloud

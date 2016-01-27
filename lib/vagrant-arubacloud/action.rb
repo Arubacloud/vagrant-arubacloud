@@ -130,6 +130,13 @@ module VagrantPlugins
         end
       end
 
+      def self.action_list_templates
+        Vagrant::Action::Builder.new.tap do |b|
+          b.use ConnectArubaCloud
+          b.use ListTemplates
+        end
+      end
+
       # The autoload farm
       action_root = Pathname.new(File.expand_path('../action', __FILE__))
       autoload :ConnectArubaCloud, action_root.join('connect_arubacloud')
@@ -143,6 +150,7 @@ module VagrantPlugins
       autoload :ReadState, action_root.join('read_state')
       # autoload :RunInitScript, action_root.join("run_init_script")
       autoload :ListServers, action_root.join('list_servers')
+      autoload :ListTemplates, action_root.join('list_templates')
 
     end
   end

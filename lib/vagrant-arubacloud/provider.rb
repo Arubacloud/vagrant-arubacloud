@@ -19,6 +19,14 @@ module VagrantPlugins
         nil
       end
 
+      def ssh_info
+        # Run a custom action called "read_ssh_info" which does what it
+        # says and puts the resulting SSH info into the `:machine_ssh_info`
+        # key in the environment.
+        env = @machine.action("read_ssh_info")
+        env[:machine_ssh_info]
+      end
+
       def state
         # Run a custom action we define called "read_state" which does
         # what it says. It puts the state in the `:machine_state_id`
