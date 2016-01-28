@@ -13,3 +13,7 @@
 *.a
 mkmf.log
 .idea*
+Vagrantfile
+set_env.sh
+buildgem.sh
+

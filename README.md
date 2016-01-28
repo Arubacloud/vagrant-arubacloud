@@ -28,7 +28,11 @@ $ vagrant box add dummy https://github.com/arubacloud/vagrant-arubacloud/raw/mas
 ```
 
 And then make a Vagrantfile that looks like the following, filling in
-your information where necessary.
+your information where necessary. For now, username and password must be specified as environment variables:
+```
+export AC_USERNAME=""
+export AC_PASSWORD=""
+```
 
 ```
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
