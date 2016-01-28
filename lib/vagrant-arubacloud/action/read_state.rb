@@ -36,7 +36,7 @@ module VagrantPlugins
             return :not_created
           end
 
-          @env[:ui].output("VagrantPlugins::ArubaCloud::Action::ReadState.read_state, server state : #{server.state}")
+          @logger.debug("VagrantPlugins::ArubaCloud::Action::ReadState.read_state, server state : #{server.state}")
           # Return the state
           server.state
         end
