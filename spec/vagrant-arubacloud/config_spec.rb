@@ -117,7 +117,12 @@ describe VagrantPlugins::ArubaCloud::Config do
         end
       end
 
-
+      context 'the url' do
+        it 'should validate if nil' do
+          subject.url = nil
+          validation_errors.should be_empty
+        end
+      end
     end
   end
 end

@@ -8,6 +8,8 @@ en:
       The server will be powered off.
     deleting_server:
       The server will be deleted.
+    bad_state: |-
+      The server is not in the correct state for this operation.
 
     config:
       arubacloud_username_required: |-

@@ -1,4 +1,5 @@
-require "log4r"
+require 'log4r'
+require 'fog/arubacloud/error'
 
 module VagrantPlugins
   module ArubaCloud
@@ -16,7 +17,11 @@ module VagrantPlugins
             # On fog side, get will call get_service_details, I must be sure
             # that the returned object has the "id" parameters not nil
             server = env[:arubacloud_compute].servers.get(env[:machine].id)
-            server.delete
+            begin
+              server.delete
+            rescue Fog::ArubaCloud::Errors::VmStatus
+              env[:ui].info(I18n.t('vagrant_arubacloud.bad_state'))
+            end
             env[:machine].id = nil
           end
 
