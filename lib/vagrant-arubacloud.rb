@@ -9,6 +9,11 @@ module VagrantPlugins
     lib_path = Pathname.new(File.expand_path('../vagrant-arubacloud', __FILE__))
     autoload :Errors, lib_path.join('errors')
 
+    def self.init_i18n
+      I18n.load_path << File.expand_path('locales/en.yml', source_root)
+      I18n.reload!
+    end
+
     # This initializes the logging so that our logs are outputted at
     # the same level as Vagrant core logs.
     def self.init_logging
@@ -36,13 +41,13 @@ module VagrantPlugins
         logger.level = level
         logger = nil
       end
+    end
 
-      # This returns the path to the source of this plugin.
-      #
-      # @return [Pathname]
-      def self.source_root
-        @source_root ||= Pathname.new(File.expand_path('../../', __FILE__))
-      end
+    # This returns the path to the source of this plugin.
+    #
+    # @return [Pathname]
+    def self.source_root
+      @source_root ||= Pathname.new(File.expand_path('../../', __FILE__))
     end
   end
 end

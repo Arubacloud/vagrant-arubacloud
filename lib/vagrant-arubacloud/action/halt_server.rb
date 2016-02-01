@@ -13,7 +13,7 @@ module VagrantPlugins
 
         def call(env)
           if env[:machine].id
-            env[:ui].info('vagrant_arubacloud.halting_server')
+            env[:ui].info(I18n.t('vagrant_arubacloud.halting_server'))
 
             server = env[:arubacloud_compute].servers.get(env[:machine].id)
             server.power_off

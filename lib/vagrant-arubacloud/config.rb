@@ -54,11 +54,11 @@ module VagrantPlugins
       def validate(machine)
         errors = _detected_errors
 
-        errors << 'An Username is required.' unless @arubacloud_username
-        errors << 'A Password is required.' unless @arubacloud_password
-        errors << 'An SSH root Password is required' unless @admin_password
-        errors << 'A template_id is required.' unless @template_id
-        errors << 'A package_id is required.' unless @package_id
+        errors << I18n.t('vagrant_arubacloud.config.arubacloud_username_required') unless @arubacloud_username
+        errors << I18n.t('vagrant_arubacloud.config.arubacloud_password_required') unless @arubacloud_password
+        errors << I18n.t('vagrant_arubacloud.config.admin_password_required') unless @admin_password
+        errors << I18n.t('vagrant_arubacloud.config.template_id_required') unless @template_id
+        errors << I18n.t('vagrant_arubacloud.config.package_id_required') unless @package_id
 
         {'ArubaCloud Provider' => errors}
       end

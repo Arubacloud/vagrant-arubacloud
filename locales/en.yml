@@ -1,0 +1,44 @@
+en:
+  vagrant_arubacloud:
+    not_created: |-
+      The server hasn't been created yet. Run `vagrant up` first.
+    already_created: |-
+      The server is already created.
+    halting_server:
+      The server will be powered off.
+    deleting_server:
+      The server will be deleted.
+
+    config:
+      arubacloud_username_required: |-
+        An username is required (arubacloud_username).
+      arubacloud_password_required: |-
+        A password is required (arubacloud_password).
+      admin_password_required: |-
+        An SSH root Password is required (admin_password).
+      template_id_required: |-
+        A template_id is required.
+      package_id_required: |-
+        A package_id is required.
+
+    states:
+      short_1: |-
+        creating
+      long_1: |-
+        The server is creating. Wait for the server to be ready.
+      short_2: |-
+        stopped
+      long_build: |-
+        The server is currently stopped.
+      short_3: |-
+        running
+      long_3: |-
+        The server is ready. Use `vagrant ssh` to interact with the server.
+      short_5: |-
+        deleted
+      long_5: |-
+        The server is deleted.
+      short_not_created: |-
+        not created
+      long_not_created: |-
+        The server is not created. Run `vagrant up` to create it.

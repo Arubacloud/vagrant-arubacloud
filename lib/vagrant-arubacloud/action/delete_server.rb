@@ -12,7 +12,7 @@ module VagrantPlugins
 
         def call(env)
           if env[:machine].id
-            env[:ui].info('vagrant_arubacloud.deleting_server')
+            env[:ui].info(I18n.t('vagrant_arubacloud.deleting_server'))
             # On fog side, get will call get_service_details, I must be sure
             # that the returned object has the "id" parameters not nil
             server = env[:arubacloud_compute].servers.get(env[:machine].id)

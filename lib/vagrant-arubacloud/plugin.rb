@@ -23,6 +23,7 @@ module VagrantPlugins
       end
 
       provider(:arubacloud, { :box_optional => true, :parallel => false }) do
+        ArubaCloud.init_i18n
         ArubaCloud.init_logging
 
         require_relative 'provider'
