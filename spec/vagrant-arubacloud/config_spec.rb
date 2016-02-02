@@ -1,5 +1,7 @@
 require 'spec_helper'
 require 'vagrant-arubacloud/config'
+require 'fog/arubacloud'
+
 
 describe VagrantPlugins::ArubaCloud::Config do
   describe 'defaults' do
