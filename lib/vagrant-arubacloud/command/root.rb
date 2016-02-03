@@ -29,8 +29,10 @@ module VagrantPlugins
             return help
           end
 
+          # Set command_class to default nil
+          command_class = nil
           command_class = @subcommands.get(@sub_command.to_sym) if @sub_command
-          return help unless command_class || !@sub_command
+          return help if command_class.nil? || !@sub_command
           @logger.debug("Invoking command class: #{command_class} #{@sub_args.inspect}")
 
           # Initialize and execute the command class

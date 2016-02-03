@@ -8,6 +8,9 @@ module VagrantPlugins
         error_namespace('vagrant_aruba_cloud.errors')
       end
 
+      class MachineAlreadyPresent < ArubaCloudError
+      end
+
     end
   end
 end
