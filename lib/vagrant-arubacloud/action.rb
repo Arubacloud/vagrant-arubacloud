@@ -114,8 +114,6 @@ module VagrantPlugins
             end
 
             b2.use ConnectArubaCloud
-            b2.use Provision
-            b2.use SyncedFolders
             # b2.use RunInitScript # temporarily removed
             b2.use CreateServer
             b2.use WaitForCommunicator
