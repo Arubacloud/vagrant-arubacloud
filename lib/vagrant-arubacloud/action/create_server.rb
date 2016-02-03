@@ -48,11 +48,14 @@ module VagrantPlugins
             server = env[:arubacloud_compute].servers.create(options)
           rescue Fog::ArubaCloud::Errors::RequestError => e
             message = ''
+            error = nil
             if e.response['ResultCode'].eql? 16
               message = "Virtual machine with name: #{options[:name]}, already present. Bailout!"
+              error = Errors::MachineAlreadyPresent
             end
+            env[:ui].warn("Response message: #{response.to_yaml}")
             env[:ui].warn(message)
-            raise Errors::MachineAlreadyPresent
+            raise error
           end
 
           # Store id of the machine
