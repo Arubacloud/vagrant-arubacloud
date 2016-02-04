@@ -11,6 +11,9 @@ module VagrantPlugins
       class MachineAlreadyPresent < ArubaCloudError
       end
 
+      class BadServerResponse < ArubaCloudError
+      end
+
     end
   end
 end

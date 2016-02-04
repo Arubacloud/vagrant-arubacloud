@@ -1,6 +1,5 @@
 require 'fog'
 require 'log4r'
-require 'pp'
 
 require 'vagrant/util/retryable'
 
@@ -52,8 +51,11 @@ module VagrantPlugins
             if e.response['ResultCode'].eql? 16
               message = "Virtual machine with name: #{options[:name]}, already present. Bailout!"
               error = Errors::MachineAlreadyPresent
+            elsif e.response['ResultCode'].eql? -500
+              message = 'Server returned an unexpected response. Bailout!'
+              error = Errors::BadServerResponse
             end
-            env[:ui].warn("Response message: #{response.to_yaml}")
+            env[:ui].warn("Response message: #{e.response.to_yaml}")
             env[:ui].warn(message)
             raise error
           end
@@ -67,13 +69,10 @@ module VagrantPlugins
 
           retryable(:tries => 10, :sleep => 60) do
             next if env[:interrupted]
-
-            @logger.debug("create_server: ready? #{server.ready?}")
-            @logger.debug("create_server: server.state: #{server.state}")
-            server.wait_for(5) { ready? } # you shall not pass!
+            server.wait_for(5) { ready? }
           end
 
-          env[:ui].info(' The server is ready!')
+          env[:ui].info('The server is ready!')
 
           @app.call(env)
         end

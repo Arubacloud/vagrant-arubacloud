@@ -19,6 +19,7 @@ module VagrantPlugins
             b1.use Call, DestroyConfirm do |env1, b2|
               if env1[:result]
                 b2.use ConnectArubaCloud
+                b2.use HaltServer
                 b2.use DeleteServer
               else
                 b2.use Message, ' The server will not be deleted.'
@@ -37,9 +38,8 @@ module VagrantPlugins
               b1.use MessageNotCreated
               next
             end
-            b1.use ConnectArubaCloud #shame on you too
+            b1.use ConnectArubaCloud
             b1.use HaltServer
-            b1.use Message, ' The server will be powered off.'
           end
         end
       end

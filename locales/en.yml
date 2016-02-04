@@ -6,10 +6,12 @@ en:
       The server is already created.
     halting_server:
       The server will be powered off.
-    deleting_server:
+    deleting_server: |-
       The server will be deleted.
     bad_state: |-
       The server is not in the correct state for this operation.
+    server_powered_off: |-
+      The server is now powered off.
 
     config:
       arubacloud_username_required: |-
