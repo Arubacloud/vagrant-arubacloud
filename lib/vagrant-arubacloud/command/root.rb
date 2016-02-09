@@ -5,11 +5,12 @@ module VagrantPlugins
     module Command
       class Root < Vagrant.plugin('2', :command)
         def self.synopsis
-          'query ArubaCloud for available images or flavors'
+          'query ArubaCloud for servers and templates'
         end
 
         def initialize(argv, env)
           @main_args, @sub_command, @sub_args = split_main_and_subcommand(argv)
+          @env = env
 
           @subcommands = Vagrant::Registry.new
           @subcommands.register(:templates) do

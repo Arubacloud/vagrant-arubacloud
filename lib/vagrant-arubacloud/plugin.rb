@@ -31,10 +31,18 @@ module VagrantPlugins
       end
 
       command('arubacloud') do
+        ArubaCloud.init_i18n
+        ArubaCloud.init_logging
+
         require_relative 'command/root'
         Command::Root
       end
-    end # Plugin
 
+      # Disable require tty for centOS
+      guest_capability 'redhat', 'disable requiretty' do
+        require_relative 'cap/disable_requiretty'
+        Cap::DisableRequireTty
+      end
+    end # Plugin
   end # ArubaCloud
 end # VagrantPlugins
