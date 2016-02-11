@@ -16,6 +16,8 @@ en:
       Cannot find disable_requiretty capability.
     disabling_requiretty: |-
       Disabling requiretty on CentOS distribution.
+    operation_already_in_queue: |-
+      The operation you are calling on the server, is already present in queue.
 
     config:
       arubacloud_username_required: |-

@@ -1,5 +1,6 @@
 require 'log4r'
 require 'fog/arubacloud/error'
+require 'pry'
 
 module VagrantPlugins
   module ArubaCloud
@@ -20,7 +21,7 @@ module VagrantPlugins
             begin
               server.delete
             rescue Fog::ArubaCloud::Errors::VmStatus
-              env[:ui].info(I18n.t('vagrant_arubacloud.bad_state'))
+              env[:ui].warn(I18n.t('vagrant_arubacloud.bad_state'))
             end
             env[:machine].id = nil
           end

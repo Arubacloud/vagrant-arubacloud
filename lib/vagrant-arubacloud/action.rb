@@ -1,4 +1,5 @@
 require 'vagrant/action/builder'
+require 'pry'
 
 module VagrantPlugins
   module ArubaCloud
