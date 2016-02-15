@@ -53,7 +53,8 @@ module VagrantPlugins
               b2.use MessageNotCreated
               next
             end
-            b2.use Provision
+            # Use our custom provisioning class
+            b2.use ArubaProvision
             b2.use SyncedFolders
           end
         end
@@ -150,6 +151,7 @@ module VagrantPlugins
       # autoload :RunInitScript, action_root.join("run_init_script")
       autoload :ListServers, action_root.join('list_servers')
       autoload :ListTemplates, action_root.join('list_templates')
+      autoload :ArubaProvision, action_root.join('aruba_provision')
 
     end
   end

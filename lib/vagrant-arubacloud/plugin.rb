@@ -39,7 +39,7 @@ module VagrantPlugins
       end
 
       # Disable require tty for centOS
-      guest_capability 'redhat', 'disable requiretty' do
+      guest_capability 'redhat', 'disable_requiretty' do
         require_relative 'cap/disable_requiretty'
         Cap::DisableRequireTty
       end

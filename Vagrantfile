@@ -20,16 +20,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "dummy"
 
-  config.vm.define :ubuntu do |ubuntu|
-    ubuntu.ssh.username = 'root'
-    ubuntu.ssh.password = 'g1un71n5.l4m3n74'
-    ubuntu.vm.provider :arubacloud do |ac|
+  config.vm.define :centos do |centos|
+    centos.ssh.username = 'root'
+    centos.ssh.password = 'g1un71n5.l4m3n74'
+    centos.vm.provider :arubacloud do |ac|
       ac.arubacloud_username = ENV['AC_USERNAME']
       ac.arubacloud_password = ENV['AC_PASSWORD']
       ac.admin_password = 'g1un71n5.l4m3n74'
-      ac.template_id = '601'
+      ac.template_id = '415'
       ac.package_id = 1
-      ac.server_name = "ubuntu-#{rnd_string}"
+      ac.server_name = "centos-#{rnd_string}"
     end
   end
 
