@@ -30,6 +30,14 @@ en:
         A template_id is required.
       package_id_required: |-
         A package_id is required.
+      service_type_required: |-
+        Service type is required.
+      cpu_number_required: |-
+        Cpu number is required.
+      ram_qty_required: |-
+        Ram quantity is required.
+      hds_conf_required: |-
+        An hard disk configuration is required.
 
     states:
       short_1: |-

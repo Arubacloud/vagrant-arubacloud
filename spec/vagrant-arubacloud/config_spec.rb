@@ -48,6 +48,10 @@ describe VagrantPlugins::ArubaCloud::Config do
         subject.admin_password = 'foobar'
         subject.template_id = 1
         subject.package_id = 1
+        subject.service_type = 1
+        subject.cpu_number = 1
+        subject.ram_qty = 1
+        subject.hds = [{:type => 1, :size => 500}]
       end
 
       subject do
@@ -110,12 +114,53 @@ describe VagrantPlugins::ArubaCloud::Config do
         end
       end
 
-      context 'the package_id' do
+      context 'the service_type' do
         it 'should error if not given' do
-          subject.package_id = nil
-          I18n.should_receive(:t).with('vagrant_arubacloud.config.package_id_required')
-          .and_return error_message
+          subject.service_type = nil
+          I18n.should_receive(:t).with('vagrant_arubacloud.config.service_type_required')
+              .and_return error_message
           validation_errors.first.should == error_message
+        end
+      end
+
+      describe 'smart create' do
+        context 'the package_id' do
+          it 'should error if not given' do
+            subject.package_id = nil
+            subject.service_type = 4
+            I18n.should_receive(:t).with('vagrant_arubacloud.config.package_id_required')
+                .and_return error_message
+            validation_errors.first.should == error_message
+          end
+        end
+      end
+
+      describe 'pro create' do
+        before(:each) do
+          subject.service_type = 1
+        end
+
+        context 'the cpu_number' do
+          it 'should error if not given' do
+            subject.cpu_number = nil
+            I18n.should_receive(:t).with('vagrant_arubacloud.config.cpu_number_required')
+                .and_return error_message
+            validation_errors.first.should == error_message
+          end
+        end
+        context 'the ram_qty' do
+          it 'should error if not given' do
+            subject.ram_qty = nil
+            I18n.should_receive(:t).with('vagrant_arubacloud.config.ram_qty_required')
+                .and_return error_message
+            validation_errors.first.should == error_message
+          end
+        end
+        context 'the package_id' do
+          it 'should valida if not given' do
+            subject.package_id = nil
+            validation_errors.should be_empty
+          end
         end
       end
 
