@@ -1,5 +1,5 @@
 require 'vagrant/action/builder'
-require 'pry'
+require 'vagrant/action'
 
 module VagrantPlugins
   module ArubaCloud
@@ -152,7 +152,6 @@ module VagrantPlugins
       autoload :ListServers, action_root.join('list_servers')
       autoload :ListTemplates, action_root.join('list_templates')
       autoload :ArubaProvision, action_root.join('aruba_provision')
-
     end
   end
 end

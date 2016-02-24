@@ -17,7 +17,6 @@ module VagrantPlugins
 
         def call(env)
           @env = env
-          binding.pry
 
           if @machine.guest.name.eql? :redhat
             unless @machine.guest.capability?(:disable_requiretty)

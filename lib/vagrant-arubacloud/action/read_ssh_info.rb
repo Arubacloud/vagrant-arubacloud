@@ -29,9 +29,9 @@ module VagrantPlugins
             nil
           else
             @logger.info("read_ssh_info: server.smart_ipv4: #{server.smart_ipv4}")
-            # Return the server object, for now we support only smart
+            # Return the server object
             {
-                :host => server.smart_ipv4,
+                :host => server.get_public_ip,
                 :port => 22,
                 :username => 'root'
             }

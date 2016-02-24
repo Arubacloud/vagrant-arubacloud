@@ -27,9 +27,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ac.arubacloud_username = ENV['AC_USERNAME']
       ac.arubacloud_password = ENV['AC_PASSWORD']
       ac.admin_password = 'g1un71n5.l4m3n74'
-      ac.template_id = '415'
-      ac.package_id = 1
+      #ac.template_id = '415'
+      ac.template_id = '9'
+      #ac.package_id = 1
+      ac.service_type = 2
       ac.server_name = "centos-#{rnd_string}"
+      ac.cpu_number = 2
+      ac.ram_qty = 4
+      ac.hds = [{:type => 0, :size => 20}, {:type => 1, :size => 30}]
     end
   end
 

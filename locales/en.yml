@@ -38,6 +38,8 @@ en:
         Ram quantity is required.
       hds_conf_required: |-
         An hard disk configuration is required.
+      hds_conf_must_be_array: |-
+        Hard disks configuration must be an array of Hash
 
     states:
       short_1: |-

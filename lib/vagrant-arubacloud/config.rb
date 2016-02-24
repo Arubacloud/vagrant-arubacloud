@@ -61,7 +61,7 @@ module VagrantPlugins
 
       # Array containing hard disk Configuration
       # Example configuration (size is expressed in GB):
-      # Hds = [{:type = 0, :size=100}, {:type = 1, :size=200}]
+      # Hds = [{:type => 0, :size => 100}, {:type => 1, :size => 200}]
       # Hd type 0 is required because specify the first hard disk, max size per hd: 500 GB
       # Hd type > 0 < 4 are 3 additional hard disks (optional)
       # @return [Array]
@@ -110,9 +110,12 @@ module VagrantPlugins
         else
           errors << I18n.t('vagrant_arubacloud.config.cpu_number_required') unless @cpu_number
           errors << I18n.t('vagrant_arubacloud.config.ram_qty_required') unless @ram_qty
-          errors << I18n.t('vagrant_arubacloud.config.hds_conf_required') unless @hds and @hds.kind_of?(Array)
+          if @hds
+            errors << I18n.t('vagrant_arubacloud.config.hds_conf_must_be_array') unless @hds.kind_of?(Array)
+          elsif
+            errors << I18n.t('vagrant_arubacloud.config.hds_conf_required')
+          end
         end
-
         {'ArubaCloud Provider' => errors}
       end
 

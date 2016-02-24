@@ -162,6 +162,22 @@ describe VagrantPlugins::ArubaCloud::Config do
             validation_errors.should be_empty
           end
         end
+        context 'the hds configuration' do
+          it 'should error if its not an array' do
+            subject.hds = 'test'
+            I18n.should_receive(:t).with('vagrant_arubacloud.config.hds_conf_must_be_array')
+                .and_return error_message
+            validation_errors.first.should == error_message
+          end
+        end
+        context 'the hds configuration' do
+          it 'should error if not given' do
+            subject.hds = nil
+            I18n.should_receive(:t).with('vagrant_arubacloud.config.hds_conf_required')
+                .and_return error_message
+            validation_errors.first.should == error_message
+          end
+        end
       end
 
       context 'the url' do

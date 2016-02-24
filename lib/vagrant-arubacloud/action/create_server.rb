@@ -18,7 +18,7 @@ module VagrantPlugins
         end
 
         def call(env)
-          config         = env[:machine].provider_config
+          config = env[:machine].provider_config
 
           env[:ui].info('Creating machine...')
 
@@ -31,17 +31,39 @@ module VagrantPlugins
           env[:ui].info(" -- Root Password: #{config.admin_password}")
           env[:ui].info(" -- Package: #{config.package_id}")
           env[:ui].info(" -- OS Template: #{config.template_id}")
+          env[:ui].info(" -- Service Type: #{config.service_type}")
 
-          # Build the options to create
-          options = {
-              :name => server_name,
-              :vm_type => 'smart',
-              :admin_passwd => config.admin_password,
-              :cpu => 1,
-              :memory => 1,
-              :template_id => config.template_id,
-              :package_id => config.package_id
-          }
+          # Build the config hash according to the service type
+          if config.service_type.eql? Fog::Compute::ArubaCloud::SMART
+            options = {
+                :name => server_name,
+                :vm_type => 'smart',
+                :admin_passwd => config.admin_password,
+                :cpu => 1,
+                :memory => 1,
+                :template_id => config.template_id,
+                :package_id => config.package_id
+            }
+          else
+            # Processing hds
+            disks = []
+            config.hds.each do |disk_spec|
+              disks << env[:arubacloud_compute].disks.create({
+                  :size => disk_spec[:size],
+                  :virtual_disk_type => disk_spec[:type]
+                                                             })
+              .get_hash
+            end
+            options = {
+                :name => server_name,
+                :vm_type => 'pro',
+                :admin_passwd => config.admin_password,
+                :cpu => config.cpu_number,
+                :memory => config.ram_qty,
+                :template_id => config.template_id,
+                :disks => disks
+            }
+          end
 
           # Create the server
           begin
@@ -49,10 +71,11 @@ module VagrantPlugins
           rescue Fog::ArubaCloud::Errors::RequestError => e
             message = ''
             error = nil
-            if e.response['ResultCode'].eql? 16
+            @logger.debug(e.inspect.to_yaml)
+            if e['ResultCode'].eql? 16
               message = "Virtual machine with name: #{options[:name]}, already present. Bailout!"
               error = Errors::MachineAlreadyPresent
-            elsif e.response['ResultCode'].eql? -500
+            elsif e['ResultCode'].eql? -500
               message = 'Server returned an unexpected response. Bailout!'
               error = Errors::BadServerResponse
             end
@@ -66,7 +89,6 @@ module VagrantPlugins
 
           # Wait for ssh to be ready
           env[:ui].info('Waiting for the server to be ready...')
-          user = env[:machine].config.ssh.username
 
           retryable(:tries => 10, :sleep => 60) do
             next if env[:interrupted]
