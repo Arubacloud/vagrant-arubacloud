@@ -1,4 +1,4 @@
-require 'fog'
+require 'fog/arubacloud'
 require 'log4r'
 
 module VagrantPlugins

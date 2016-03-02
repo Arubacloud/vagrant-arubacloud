@@ -1,5 +1,4 @@
 require 'log4r'
-require 'pry'
 
 module VagrantPlugins
   module ArubaCloud

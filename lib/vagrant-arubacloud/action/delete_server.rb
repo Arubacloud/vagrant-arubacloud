@@ -1,6 +1,5 @@
 require 'log4r'
 require 'fog/arubacloud/error'
-require 'pry'
 
 module VagrantPlugins
   module ArubaCloud

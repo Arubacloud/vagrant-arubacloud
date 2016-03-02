@@ -1,6 +1,5 @@
-require 'fog'
+require 'fog/arubacloud'
 require 'log4r'
-require 'pry'
 
 require 'vagrant/util/retryable'
 
@@ -34,7 +33,7 @@ module VagrantPlugins
           env[:ui].info(" -- Service Type: #{config.service_type}")
 
           # Build the config hash according to the service type
-          if config.service_type.eql? Fog::Compute::ArubaCloud::SMART
+          if config.service_type.eql? 4
             options = {
                 :name => server_name,
                 :vm_type => 'smart',
@@ -75,7 +74,7 @@ module VagrantPlugins
             if e['ResultCode'].eql? 16
               message = "Virtual machine with name: #{options[:name]}, already present. Bailout!"
               error = Errors::MachineAlreadyPresent
-            elsif e['ResultCode'].eql? -500
+            elsif e['ResultCode'].eql?(-500)
               message = 'Server returned an unexpected response. Bailout!'
               error = Errors::BadServerResponse
             end

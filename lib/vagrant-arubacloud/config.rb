@@ -1,5 +1,5 @@
 require 'vagrant'
-require 'fog/arubacloud'
+require 'fog'
 
 module VagrantPlugins
   module ArubaCloud
@@ -105,7 +105,7 @@ module VagrantPlugins
         errors << I18n.t('vagrant_arubacloud.config.template_id_required') unless @template_id
         errors << I18n.t('vagrant_arubacloud.config.service_type_required') unless @service_type
 
-        if @service_type.eql? Fog::Compute::ArubaCloud::SMART
+        if @service_type.eql? 4
           errors << I18n.t('vagrant_arubacloud.config.package_id_required') unless @package_id
         else
           errors << I18n.t('vagrant_arubacloud.config.cpu_number_required') unless @cpu_number
