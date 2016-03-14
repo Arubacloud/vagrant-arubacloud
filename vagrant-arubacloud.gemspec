@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.add_runtime_dependency 'fog', '~> 1.22'
-  spec.add_runtime_dependency 'fog-arubacloud', '~> 0.0.2'
+  spec.add_runtime_dependency 'fog-arubacloud', '~> 0.0.3'
 
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake'
