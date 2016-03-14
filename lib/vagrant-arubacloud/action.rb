@@ -60,6 +60,12 @@ module VagrantPlugins
         end
       end
 
+      #def self.action_reload
+        #Vagrant::Action::Builder.new.tap do |b|
+
+        #end
+      #end
+
       def self.action_read_ssh_info
         Vagrant::Action::Builder.new.tap do |b|
           b.use ConfigValidate

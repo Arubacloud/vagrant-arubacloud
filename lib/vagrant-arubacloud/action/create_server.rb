@@ -71,10 +71,10 @@ module VagrantPlugins
             message = ''
             error = nil
             @logger.debug(e.inspect.to_yaml)
-            if e['ResultCode'].eql? 16
+            if e.response['ResultCode'].eql? 16
               message = "Virtual machine with name: #{options[:name]}, already present. Bailout!"
               error = Errors::MachineAlreadyPresent
-            elsif e['ResultCode'].eql?(-500)
+            elsif e.response['ResultCode'].eql?(-500)
               message = 'Server returned an unexpected response. Bailout!'
               error = Errors::BadServerResponse
             end
