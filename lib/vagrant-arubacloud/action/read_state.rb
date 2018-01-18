@@ -25,11 +25,11 @@ module VagrantPlugins
 
           # Find the machine
           server = arubacloud.servers.get(machine.id)
-          unless server.instance_of? Fog::Compute::ArubaCloud::Server
-            msg = "VagrantPlugins::ArubaCloud::Action::ReadState.read_state, 'server' must be Fog::Compute::ArubaCloud::Server, got: #{server.class}"
+          unless server.instance_of? Fog::ArubaCloud::Compute::Server
+            msg = "VagrantPlugins::ArubaCloud::Action::ReadState.read_state, 'server' must be Fog::ArubaCloud::Compute::Server, got: #{server.class}"
             @logger.critical("#{msg}")
           end
-          if server.nil? || server.state == Fog::Compute::ArubaCloud::Server::DELETED
+          if server.nil? || server.state == Fog::ArubaCloud::Compute::Server::DELETED
             # The machine can't be found
             @logger.info('Machine not found or deleted, assuming it got destroyed.')
             machine.id = nil

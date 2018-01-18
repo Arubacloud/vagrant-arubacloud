@@ -5,10 +5,9 @@ gemspec
 
 group :development do
   gem 'vagrant', git: 'https://github.com/mitchellh/vagrant.git'
-  #gem 'vagrant', path: '/home/alessio.rocchi/RubymineProjects/vagrant'
-  gem 'fog-arubacloud', git: 'https://github.com/fog/fog-arubacloud'
+  #gem 'fog-arubacloud', git: 'https://github.com/Arubacloud/fog-arubacloud.git'
 end
 
-group :plugins do
-  gem 'vagrant-arubacloud', path: '.'
-end
+#group :plugins do
+#  gem 'vagrant-arubacloud', path: '.'
+#end
