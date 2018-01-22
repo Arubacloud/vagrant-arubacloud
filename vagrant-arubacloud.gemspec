@@ -7,8 +7,8 @@ require 'vagrant-arubacloud/version'
 Gem::Specification.new do |spec|
   spec.name          = 'vagrant-arubacloud'
   spec.version       = Vagrant::ArubaCloud::VERSION
-  spec.authors       = ['Alessio Rocchi']
-  spec.email         = ['alessio.rocchi@staff.aruba.it']
+  spec.authors       = ['Aruba S.p.A.']
+  spec.email         = ['cloudsdk@staff.aruba.it']
   spec.summary       = %q{Enables Vagrant to manage servers in ArubaCloud IaaS.}
   spec.description   = %q{Enables Vagrant to manage servers in ArubaCloud IaaS.}
   spec.homepage      = 'https://www.github.com/arubacloud/vagrant-arubacloud'
