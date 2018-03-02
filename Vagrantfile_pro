@@ -9,15 +9,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vmvgr01_config.ssh.username = 'root'
     vmvgr01_config.ssh.password = 'test123'
     vmvgr01_config.vm.synced_folder ".", "/vagrant", disabled: true
+    vmvgr01_config.vm.synced_folder "/hostshare2", "/guestshare_norm"
+    vmvgr01_config.vm.provision "shell" do |s|
+      s.inline = "echo 'test start script ok'"
+    end
     vmvgr01_config.vm.provider :arubacloud do |ac, ac_override|
       ac_override.nfs.functional = false           # no nfs start
       ac.arubacloud_username = ENV['AC_USERNAME']
       ac.arubacloud_password = ENV['AC_PASSWORD']
-      ac.service_type = 4
+      # 
+      ac.service_type = 2
       ac.endpoint = "dc2"
-      ac.template_id = '601'
-      ac.server_name = 'lnxtestvag1'
-      ac.package_id = 'small'
-    end
+      ac.cpu_number = 2
+      ac.ram_qty = 6
+      ac.hds = [{:type => 0, :size => 20}, {:type => 1, :size => 30}]
+      #
+      # CentOS 7.x 64bit  with pro VmWare 
+      ac.template_id = '691' 
+      ac.server_name = 'lnxprotstvag2'
+      end
   end
 end

@@ -1,0 +1,108 @@
+VAGRANTFILE_API_VERSION = '2'
+%w{AC_USERNAME AC_PASSWORD}.each do |var|
+  abort "Please set the environment variable #{var} in order to run the test" unless ENV.key? var
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "dummy"
+  config.vm.define :vmvgr01 do |vmvgr01_config|
+    vmvgr01_config.ssh.username = 'root'
+    vmvgr01_config.ssh.password = 'test123'
+    vmvgr01_config.vm.synced_folder ".", "/vagrant", disabled: true
+    vmvgr01_config.vm.synced_folder "/hostshare2", "/guestshare_norm"
+    vmvgr01_config.vm.provision "shell" do |s|
+      s.inline = "echo 'test start script ok'"
+    end
+    vmvgr01_config.vm.provider :arubacloud do |ac, ac_override|
+      ac_override.nfs.functional = false           # no nfs start
+      ac.arubacloud_username = ENV['AC_USERNAME']
+      ac.arubacloud_password = ENV['AC_PASSWORD']
+      ac.service_type = 4
+      ac.endpoint = "dc2"
+      ac.template_id = '601'
+      ac.server_name = 'lnxtestvaga'
+      ac.package_id = 'small'
+    end
+  end
+  #
+  config.vm.define :vmvgr02 do |vmvgr02_config|
+    vmvgr02_config.ssh.username = 'root'
+    vmvgr02_config.ssh.password = 'test123'
+    vmvgr02_config.vm.synced_folder ".", "/vagrant", disabled: true
+    vmvgr02_config.vm.synced_folder "/hostshare2", "/guestshare_norm"
+    vmvgr02_config.vm.provision "shell" do |s|
+      s.inline = "echo 'test2 start script ok'"
+    end
+    vmvgr02_config.vm.provider :arubacloud do |ac, ac_override|
+      ac_override.nfs.functional = false           # no nfs start
+      ac.arubacloud_username = ENV['AC_USERNAME']
+      ac.arubacloud_password = ENV['AC_PASSWORD']
+      ac.service_type = 4
+      ac.endpoint = "dc2"
+      ac.template_id = '601'
+      ac.server_name = 'lnxtestvagb'
+      ac.package_id = 'small'
+    end
+  end
+  #
+  config.vm.define :vmvgr03 do |vmvgr03_config|
+    vmvgr03_config.ssh.username = 'root'
+    vmvgr03_config.ssh.password = 'test123'
+    vmvgr03_config.vm.synced_folder ".", "/vagrant", disabled: true
+    vmvgr03_config.vm.synced_folder "/hostshare2", "/guestshare_norm"
+    vmvgr03_config.vm.provision "shell" do |s|
+      s.inline = "echo 'test machine 3  start script ok'"
+    end
+    vmvgr03_config.vm.provider :arubacloud do |ac, ac_override|
+      ac_override.nfs.functional = false           # no nfs start
+      ac.arubacloud_username = ENV['AC_USERNAME']
+      ac.arubacloud_password = ENV['AC_PASSWORD']
+      ac.service_type = 4
+      ac.endpoint = "dc2"
+      ac.template_id = '601'
+      ac.server_name = 'lnxtestvagc'
+      ac.package_id = 'small'
+    end
+  end
+  #
+  config.vm.define :vmvgr04 do |vmvgr04_config|
+    vmvgr04_config.ssh.username = 'root'
+    vmvgr04_config.ssh.password = 'test123'
+    vmvgr04_config.vm.synced_folder ".", "/vagrant", disabled: true
+    vmvgr04_config.vm.synced_folder "/hostshare2", "/guestshare_norm"
+    vmvgr04_config.vm.provision "shell" do |s|
+      s.inline = "echo 'test machine 04  start script ok'"
+    end
+    vmvgr04_config.vm.provider :arubacloud do |ac, ac_override|
+      ac_override.nfs.functional = false           # no nfs start
+      ac.arubacloud_username = ENV['AC_USERNAME']
+      ac.arubacloud_password = ENV['AC_PASSWORD']
+      ac.service_type = 4
+      ac.endpoint = "dc2"
+      ac.template_id = '601'
+      ac.server_name = 'lnxtestvagd'
+      ac.package_id = 'medium'
+    end
+  end
+  #
+  config.vm.define :vmvgr05 do |vmvgr05_config|
+    vmvgr05_config.ssh.username = 'root'
+    vmvgr05_config.ssh.password = 'test123'
+    vmvgr05_config.vm.synced_folder ".", "/vagrant", disabled: true
+    vmvgr05_config.vm.synced_folder "/hostshare2", "/guestshare_norm"
+    vmvgr05_config.vm.provision "shell" do |s|
+      s.inline = "echo 'test machine 5  start script ok'"
+    end
+    vmvgr05_config.vm.provider :arubacloud do |ac, ac_override|
+      ac_override.nfs.functional = false           # no nfs start
+      ac.arubacloud_username = ENV['AC_USERNAME']
+      ac.arubacloud_password = ENV['AC_PASSWORD']
+      ac.service_type = 4
+      ac.endpoint = "dc2"
+      ac.template_id = '601'
+      ac.server_name = 'lnxtestvage'
+      ac.package_id = 'small'
+    end
+  end
+
+end

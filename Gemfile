@@ -5,7 +5,6 @@ gemspec
 
 group :development do
   gem 'vagrant', git: 'https://github.com/mitchellh/vagrant.git'
-  #gem 'fog-arubacloud', git: 'https://github.com/Arubacloud/fog-arubacloud.git'
 end
 
 #group :plugins do

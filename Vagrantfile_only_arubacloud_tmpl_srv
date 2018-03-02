@@ -1,23 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+
 VAGRANTFILE_API_VERSION = '2'
 %w{AC_USERNAME AC_PASSWORD}.each do |var|
   abort "Please set the environment variable #{var} in order to run the test" unless ENV.key? var
 end
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "dummy"
   config.vm.define :vmvgr01 do |vmvgr01_config|
-    vmvgr01_config.ssh.username = 'root'
-    vmvgr01_config.ssh.password = 'test123'
-    vmvgr01_config.vm.synced_folder ".", "/vagrant", disabled: true
-    vmvgr01_config.vm.provider :arubacloud do |ac, ac_override|
-      ac_override.nfs.functional = false           # no nfs start
+    vmvgr01_config.ssh.password = 'dummy'   
+    vmvgr01_config.vm.provider :arubacloud do |ac|
       ac.arubacloud_username = ENV['AC_USERNAME']
       ac.arubacloud_password = ENV['AC_PASSWORD']
       ac.service_type = 4
       ac.endpoint = "dc2"
-      ac.template_id = '601'
-      ac.server_name = 'lnxtestvag1'
-      ac.package_id = 'small'
+      ac.template_id = 'dummy'              
+      ac.package_id = 'dummy'               
     end
   end
 end

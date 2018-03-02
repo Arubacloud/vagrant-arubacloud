@@ -24,7 +24,7 @@ module VagrantPlugins
           server = arubacloud.servers.get(machine.id)
           if server.nil?
             # The machine can't be found
-            @logger.info("'Machine couldn't be found, assuming it got destroyed.")
+            @logger.info("Machine couldn't be found, assuming it got destroyed.")
             machine.id = nil
             nil
           else

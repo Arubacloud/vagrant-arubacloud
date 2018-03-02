@@ -13,9 +13,6 @@ module VagrantPlugins
         end
 
         def call(env)
-          # env[:ui].output(":machine_state_id: #{env[:machine_state_id]}")
-          # env[:ui].output(":arubacloud_compute: #{env[:arubacloud_compute]}")
-          # env[:ui].output(":machine: #{env[:machine]}")
           env[:machine_state_id] = read_state(env[:arubacloud_compute], env[:machine])
           @app.call(env)
         end

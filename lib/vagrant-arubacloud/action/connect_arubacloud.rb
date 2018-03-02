@@ -16,6 +16,7 @@ module VagrantPlugins
           config = env[:machine].provider_config
           arubacloud_username = config.arubacloud_username
           arubacloud_password = config.arubacloud_password
+          arubacloud_dc = config.endpoint
 
           params = {
               :provider => :arubacloud,
@@ -24,7 +25,7 @@ module VagrantPlugins
           }
 
           if config.url
-            @logger.info("Connecting to Datacenter: #{config.url}")
+            @logger.info("Connecting to Datacenter: #{arubacloud_dc}  url: #{config.url} ")
             params[:url] = config.url
           end
 

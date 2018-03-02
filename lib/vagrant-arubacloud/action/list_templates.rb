@@ -7,10 +7,12 @@ module VagrantPlugins
         end
 
         def call(env)
+          config = env[:machine].provider_config
+          arubacloud_dc = config.endpoint
           compute_service = env[:arubacloud_compute]
-          env[:ui].info ('%-40s %-60s %-20s %s' % ['Template Name', 'Description', 'ID', 'Hypervisor ID'])
+          env[:ui].info ('%-5s %-40s %-60s %-20s %s' % ['DC', 'Template Name', 'Description', 'ID', 'Hypervisor ID'])
           compute_service.templates.sort_by(&:hypervisor).each do |template|
-            env[:ui].info ('%-40s %-60s %-20s %s' % [template.name,
+          env[:ui].info ('%-5s %-40s %-60s %-20s %s' % [arubacloud_dc, template.name,
                                                      template.description,
                                                      template.id,
                                                      enum_hypervisor_id(template.hypervisor)])

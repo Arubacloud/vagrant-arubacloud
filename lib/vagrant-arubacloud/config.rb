@@ -4,7 +4,20 @@ require 'fog'
 module VagrantPlugins
   module ArubaCloud
 
+    DC_TABLES = {
+      :dc1 => "https://api.dc1.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
+      :dc2 => "https://api.dc2.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
+      :dc3 => "https://api.dc3.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
+      :dc4 => "https://api.dc4.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
+      :dc5 => "https://api.dc5.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
+      :dc6 => "https://api.dc6.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
+      :dc8 => "https://api.dc8.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json"
+    }
+
+    DC_DEFAULT = "dc2"
+
     class Config < Vagrant.plugin('2', :config)
+
       # ArubaCloud Username
       # @return [String]
       attr_accessor :arubacloud_username
@@ -13,10 +26,18 @@ module VagrantPlugins
       # @return [String]
       attr_accessor :arubacloud_password
 
+      # reserved for internal use
+      attr_accessor  :reserved_status
+      attr_accessor  :reserved_list_owned
+
       # Ws EndPoint Url
       # Expected to be the url of the web service to use
       # @return [String]
       attr_accessor :url
+
+      # Ws EndPoint id : can be dc2,dc2,dc3,...dc8 (dc7 is not defined at this release)
+      # @return [String]
+      attr_accessor :endpoint
 
       # The name of the server. This defaults to the name of the machine
       # defined by Vagrant (via 'config.vm.define'), but can be override here.
@@ -28,17 +49,13 @@ module VagrantPlugins
       # @return [Integer]
       attr_accessor :template_id
 
-      # The smart vm type expressed in ID:
-      # 1 = small
-      # 2 = medium
-      # 3 = large
-      # 4 = extra-large
-      # @return [Integer]
-      attr_accessor :package_id
-
-      # The admin password of the vm (root user) .
+      # The smart vm type expressed as String:
+      # 'small'
+      # 'medium'
+      # 'large'
+      # 'extra large'
       # @return [String]
-      attr_accessor :admin_password
+      attr_accessor :package_id
 
       # Service Type expressed in ID [Integer]:
       # 1 = Pro Hyper-V
@@ -70,8 +87,10 @@ module VagrantPlugins
       def initialize
         @arubacloud_username = UNSET_VALUE
         @arubacloud_password = UNSET_VALUE
-        @admin_password = UNSET_VALUE
         @url = UNSET_VALUE
+        @reserved_status = UNSET_VALUE
+        @reserved_list_owned = UNSET_VALUE
+        @endpoint = UNSET_VALUE
         @server_name = UNSET_VALUE
         @template_id = UNSET_VALUE
         @package_id = UNSET_VALUE
@@ -84,8 +103,10 @@ module VagrantPlugins
       def finalize!
         @arubacloud_username = nil if @arubacloud_username == UNSET_VALUE
         @arubacloud_password = nil if @arubacloud_password == UNSET_VALUE
-        @admin_password = nil if @admin_password == UNSET_VALUE
         @url = nil if @url == UNSET_VALUE
+        @reserved_status = nil if @reserved_status = UNSET_VALUE
+        @reserved_list_owned = nil if @reserved_list_owned = UNSET_VALUE
+        @endpoint = nil if @endpoint == UNSET_VALUE
         @server_name = nil if @server_name == UNSET_VALUE
         @template_id = nil if @template_id == UNSET_VALUE
         @package_id = nil if @package_id == UNSET_VALUE
@@ -101,9 +122,31 @@ module VagrantPlugins
         # Global configurations needed by all service types
         errors << I18n.t('vagrant_arubacloud.config.arubacloud_username_required') unless @arubacloud_username
         errors << I18n.t('vagrant_arubacloud.config.arubacloud_password_required') unless @arubacloud_password
-        errors << I18n.t('vagrant_arubacloud.config.admin_password_required') unless @admin_password
         errors << I18n.t('vagrant_arubacloud.config.template_id_required') unless @template_id
         errors << I18n.t('vagrant_arubacloud.config.service_type_required') unless @service_type
+
+        errors << I18n.t('vagrant_arubacloud.config.ssh_password_required') unless machine.config.ssh.password
+
+        #check if coded url or endpoint
+        #if url not in table or dc wrong return error
+        if (@url)
+          if (DC_TABLES.key(@url))
+            @endpoint = DC_TABLES.key(@url)
+          else
+            errors << I18n.t('vagrant_arubacloud.config.url_is_wrong')
+          end
+        else
+          if (@endpoint)
+            if DC_TABLES.key?(@endpoint.to_sym)
+              @url = DC_TABLES[@endpoint.to_sym]
+            else
+              errors << I18n.t('vagrant_arubacloud.config.endpoint_is_wrong')
+            end
+          else
+            @endpoint = DC_DEFAULT.to_sym
+            @url = DC_TABLES[DC_DEFAULT.to_sym]
+          end
+        end
 
         if @service_type.eql? 4
           errors << I18n.t('vagrant_arubacloud.config.package_id_required') unless @package_id
@@ -118,7 +161,7 @@ module VagrantPlugins
         end
         {'ArubaCloud Provider' => errors}
       end
-
     end # Config
+
   end # ArubaCloud
 end # VagrantPlugins

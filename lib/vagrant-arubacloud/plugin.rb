@@ -38,6 +38,14 @@ module VagrantPlugins
         Command::Root
       end
 
+      command('snapshot') do
+        ArubaCloud.init_i18n
+        ArubaCloud.init_logging
+
+        require_relative 'command/snapshot'
+        Command::Snapshot
+      end
+
       # Disable require tty for centOS
       guest_capability 'redhat', 'disable_requiretty' do
         require_relative 'cap/disable_requiretty'
