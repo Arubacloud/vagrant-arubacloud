@@ -17,8 +17,13 @@ module VagrantPlugins
 
           if server_fnd && server_fnd.length == 1
             server = server_fnd[0]
-            server.get_server_details
-            env[:machine].ui.info('%-6s %-20s %-8s %-12s %-14s %s' % [arubacloud_dc, server.name, server.id, server.state, Fog::ArubaCloud::Compute::Server::STATE_DES[server.state],  server.smart_ipv4] )
+            server.get_public_ip
+            ip_found = server.ipv4_addr
+            if server.hypervisor == 4
+              ip_found = server.smart_ipv4
+            end
+
+            env[:machine].ui.info('%-6s %-20s %-8s %-12s %-14s %s' % [arubacloud_dc, server.name, server.id, server.state, Fog::ArubaCloud::Compute::Server::STATE_DES[server.state],  ip_found] )
           end
 
           if config.reserved_status == "other"
@@ -32,8 +37,12 @@ module VagrantPlugins
             end
             server_xs = vm_in_dc.select{ |s|  not (config.reserved_list_owned.include? s.name)}
             server_xs.sort_by(&:name).each do |server|
-              server.get_server_details
-              ui_ext.detail('%-6s %-20s %-8s %-12s %-14s %s' % [arubacloud_dc, server.name, server.id, server.state, Fog::ArubaCloud::Compute::Server::STATE_DES[server.state],  server.smart_ipv4] )
+              server.get_public_ip
+              ip_found = server.ipv4_addr
+              if server.hypervisor == 4
+                ip_found = server.smart_ipv4
+              end
+              ui_ext.detail('%-6s %-20s %-8s %-12s %-14s %s' % [arubacloud_dc, server.name, server.id, server.state, Fog::ArubaCloud::Compute::Server::STATE_DES[server.state],  ip_found] )
             end
             config.reserved_list_owned  =  []
           else

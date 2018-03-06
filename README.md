@@ -1,15 +1,14 @@
 # Vagrant ArubaCloud Provider
 
--Update version : 0.0.6
 
 
 ## Table of Contents
+    
 * [Overview](#overview)
 * [Features](#features)
 * [Installation](#installation)
-* [Update](#update)
-  * [New and changed options](#new-and-changed-options)
-  * [Available options](#available-options)
+* [Available commands and parameters](#available-commands-and-parameters)       
+* [Obsolete options](#obsolete-options)
 * [Quick start](#quickstart)
 * [Example Usage](#example-usage)
   * [List Templates available](#list-templates-available)
@@ -61,29 +60,19 @@ $ vagrant plugin install vagrant-arubacloud
 ```
 
 
-___________
-## Update
+
+## Available commands and parameters       
 
 
-### New and changed options   
-(in config *:arubacloud* block)    
-
-
-- the command  **vagrant arubacloud servers** has been extended:
-   *  is added the DC (DataCenter), the 'id' of the server, the description of the status(run, stop ... etc).      
+- the command  **vagrant arubacloud servers**  show for each server found : 
+   *  DC (DataCenter), the 'id' of the server, the description of the status(run, stop ... etc).      
    *  the name of the node is highlighted to see if it has been defined in Vagrantfile.   
 
-- option  **admin_password**  has been removed and replaced by the directive :     
-    'nodename'.ssh.password     
-
-- option **reload** is now implemented and available; this option execute a simple      
-     *power off*   ( it's a 'reboot' and not 'power-off' forced)   
+- the command  **vagrant reload** execute a simple      
+     *power off*   ( it's a 'shutdown' and not 'power-off' forced)   
      *power on*    
 
-- after vagrant command 'up' and 'reload', is executed a synced_folder    
-
-- option **snapshot** is now implemented and available; this option execute a snapshot
-of server:
+- the command **vagrant snapshot** execute a snapshot of server:
 
 
 | Type| Command | description | status server |
@@ -97,9 +86,7 @@ of server:
 1.  *if the 'snapshot  ... restore ... ' is executed, once the command is finished, after a few seconds the snapshot is automatically deleted*    
 
 
-
-
-- option **package_id** is changed.     
+- parameter **package_id** (in *:arubacloud* section ) is changed.     
   Valid values now are :'small', 'medium', 'large', 'extra large' 
 
 
@@ -112,10 +99,8 @@ of server:
 
 
 
-- added a new parameter:   
-     **endpoint**  
-  for provider *:arubacloud*   
-  this parameter define what is the DataCenter Aruba can be used for the defined VM in Vagrantfile ; valid value are:   dc1, dc2, dc3, dc4, dc5, dc6, dc8
+- parameter  **endpoint**  (in *:arubacloud* section ) define what is the DataCenter Aruba can be used for the defined VM in Vagrantfile;     
+  valid value are:   dc1, dc2, dc3, dc4, dc5, dc6, dc8
   (default:  dc2 )   
 
 
@@ -130,26 +115,11 @@ of server:
 | `dc8`     | Poland                    |
 
 
-- the parameter:  
-
-      **nodename.url**   
-
-  if used can override the 'endpoint' value.      
+- the parameter  **nodename.url** (in *:arubacloud* section ) , if used can override the 'endpoint' value.            
   This parameter should only be used in case of new 'dc*'not yet included in this plugin.        
 
-- The very important's messages has the name of DataCenter where the VM running : [dc?] in row displayed ( 'up', 'reload' , 'halt', 'arubacloud servers/templates', 'destroy', 'snapshot') 
-  
 
-Together with the package are provided some 'Vagrantfile_*', as an example of basic configuration , minimum configuration for consulting existing servers/templates in Arubacloud, configuration with syncing_folder and a simple shell for provisioning, multi-machine configuration with multiple VM .
-
-
-
-___________
-### Available options   
-(in config  *:arubacloud*)   
-__________
-
-- **service_type** = this is the 'code' (is a numeric value) of  hypervisor used (in  Arubacloud )  
+- parameter **service_type**  (in *:arubacloud* section )  is the 'code' (is a numeric value) of  hypervisor used (in  Arubacloud )  
 Valid values are:
 
 | code | hypervisor | service type |  
@@ -159,20 +129,20 @@ Valid values are:
 |  `3` | Microsoft Hyper-V Low Cost | Cloud pro |
 |  `4` | VMWare  | Cloud smart |
 
-- **server_name**         = is the name of server ( is name listed in arubacloud web interface) 
-- **arubacloud_username** = is user account to access arubacloud 
-- **arubacloud_password** = is password of account to access arubacloud  
-- **url**                 = url of the web service to use ( *DEPRECATED*) 
-- **template_id**         = The ID of the template to use ( read the next notes to determine the correct value) 
-- **cpu_number**          = Number of Virtual CPU to be assigned to the VM only for service type not smart 
+- parameter **server_name**  (in *:arubacloud* section ) is the name of server ( name listed in arubacloud web interface) 
+- parameter **arubacloud_username**  (in *:arubacloud* section ) is user account to access arubacloud 
+- parameter **arubacloud_password**  (in *:arubacloud* section ) is password of account to access arubacloud  
+- parameter **url**  (in *:arubacloud* section ) is url of the web service to use ( *DEPRECATED*) 
+- parameter **template_id**  (in *:arubacloud* section ) is ID of the template to use ( read the next notes to determine the correct value) 
+- parameter **cpu_number**   (in *:arubacloud* section ) is number of virtual CPU to be assigned to the VM only for service type **not smart**
 
 | descr | n (number) of CPU) |
 | --- | --- |
 |  Pro VMWare | 1 < `n` < 8 |
 |  Pro Hyper-V | 1 < `n` < 4 |
 
-- **ram_qty**             = Amount of GB of RAM to be assigned to the VM (n  <= 16) only for service type not smart
-- **hds**                 = Array containing hard disk Configuration only for service type not smart:
+- parameter **ram_qty**  (in *:arubacloud* section ) is amount of GB of RAM to be assigned to the VM (n  <= 16) only for service type **not smart**
+- parameter **hds**  (in *:arubacloud* section ) is an array containing hard disk Configuration only for service type **not smart**:
 
 *Example configuration (size is expressed in GB):*   
        *hds* = [{:type => 0, :size => 100}, {:type => 1, :size => 200}]   
@@ -181,6 +151,22 @@ Valid values are:
 1.  *Hd type 0 is required because specify the first hard disk, max size per hd: 500 GB)*  
 2.  *Hd type > 0 < 4 are 3 additional hard disks (optional)*     
 
+
+
+Now the very important's messages has the name of DataCenter where the VM running : [dc?] in row displayed ( 'up', 'reload' , 'halt', 'arubacloud servers/templates', 'destroy', 'snapshot') 
+
+Together with the package are provided some 'Vagrantfile_...', as an example of basic configuration , minimum configuration for consulting existing servers/templates in Arubacloud, configuration with syncing_folder and a simple shell for provisioning, multi-machine configuration with multiple VM .
+
+
+
+___________
+## Obsolete options   
+(in config  *:arubacloud* section)   
+__________
+
+
+- option  **admin_password**  has been removed and replaced by the directive :     
+    'nodename'.ssh.password     
 
 _______________________________________
 
