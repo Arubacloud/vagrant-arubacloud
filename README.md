@@ -23,7 +23,7 @@
       * [List](#list)
       * [Restore](#restore)
       * [Delete](#delete)
-  * [View VM running in my Arubacloud](#view-vm-running-in-my-Arubacloud)
+  * [View VM running in my Arubacloud](#view-vm-running-in-my-arubacloud)
 * [Appendix](#appendix)
   * [Example Vagrantfile to list arubacloud servers templates](#example-vagrantfile-to-list-arubacloud-servers-templates)
   * [Example Vagrantfile type smart basic](#example-vagrantfile-type-smart-basic)
