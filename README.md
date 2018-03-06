@@ -18,12 +18,12 @@
   * [Reload VM](#reload-vm)
   * [Provision in VM](#provision-in-vm)
   * [Destroy VM](#destroy-vm)
-  * [View Server running in my Arubacloud](#view-server-running-in-my-arubacloud)
   * [Snapshot VM](#snapshot-vm)
       * [Create](#create)
       * [List](#list)
       * [Restore](#restore)
       * [Delete](#delete)
+  * [View VM running in my Arubacloud](#view-vm-running-in-my-Arubacloud)
 * [Appendix](#appendix)
   * [Example Vagrantfile to list arubacloud servers templates](#example-vagrantfile-to-list-arubacloud-servers-templates)
   * [Example Vagrantfile type smart basic](#example-vagrantfile-type-smart-basic)
@@ -473,7 +473,7 @@ Note: *if a previous operation 'create' it is not finished yet, the output is:*
 ```
 
 
-####  View VM running in my Arubacloud      
+####  View VM running in my Arubacloud          
 
 
 For the configuration multi-machine ( as in supplied example )  this command :
