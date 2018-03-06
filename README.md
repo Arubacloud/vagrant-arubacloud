@@ -1,6 +1,6 @@
 # Vagrant ArubaCloud Provider
 
--Update version : 0.0.5  
+-Update version : 0.0.6
 
 
 ## Table of Contents
