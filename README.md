@@ -369,34 +369,6 @@ has the following output:
 ```
 
 
-####  View VM running in my Arubacloud      
-
-
-For the configuration multi-machine ( as in supplied example )  this command :
-
-
-          vagrant arubacloud servers
-
-
-has the following output:
-(the Id can be different )
-
-
-```
-           : DC     Server Name           Id      State Code   State meaning  IPv4 address
-           : --------------------------------------------------------------------------------
-==> vmvgr01: dc2    lnxtestvaga          48839    3            Running        xxx.xxx.xxx.xxx
-==> vmvgr02: dc2    lnxtestvagb          48837    3            Running        xxx.xxx.xxx.xxx
-==> vmvgr03: dc2    lnxtestvagc          48838    3            Running        xxx.xxx.xxx.xxx
-==> vmvgr04: dc2    lnxtestvagd          48836    3            Running        xxx.xxx.xxx.xxx
-==> vmvgr05: dc2    lnxtestvage          48835    3            Running        xxx.xxx.xxx.xxx
-       -   : dc2    vm-esterna1          45840    3            Running        xxx.xxx.xxx.xxx
-       -   : dc2    lnxtestvag2          48523    3            Running        xxx.xxx.xxx.xxx
-```
-
-*Note: In this case they are highlighted rows with the servers defined in a multi-machine architecture (VM defined in current Vagrantfile)  by entering the name of the node (left of row ); all others VM  ( vm-external1 etc..) are displayed, with a light color and '-' ( VM not defined in my Vagrantfile);
-
-
 
 ####  Snapshot VM      
 
@@ -501,6 +473,35 @@ Note: *if a previous operation 'create' it is not finished yet, the output is:*
 ```
 
 
+####  View VM running in my Arubacloud      
+
+
+For the configuration multi-machine ( as in supplied example )  this command :
+
+
+          vagrant arubacloud servers
+
+
+has the following output:
+(the Id can be different )
+
+
+```
+           : DC     Server Name           Id      State Code   State meaning  IPv4 address
+           : --------------------------------------------------------------------------------
+==> vmvgr01: dc2    lnxtestvaga          48839    3            Running        xxx.xxx.xxx.xxx
+==> vmvgr02: dc2    lnxtestvagb          48837    3            Running        xxx.xxx.xxx.xxx
+==> vmvgr03: dc2    lnxtestvagc          48838    3            Running        xxx.xxx.xxx.xxx
+==> vmvgr04: dc2    lnxtestvagd          48836    3            Running        xxx.xxx.xxx.xxx
+==> vmvgr05: dc2    lnxtestvage          48835    3            Running        xxx.xxx.xxx.xxx
+       -   : dc2    vm-esterna1          45840    3            Running        xxx.xxx.xxx.xxx
+       -   : dc2    lnxtestvag2          48523    3            Running        xxx.xxx.xxx.xxx
+```
+
+*Note: In this case they are highlighted rows with the servers defined in a multi-machine architecture (VM defined in current Vagrantfile)  by entering the name of the node (left of row ); all others VM  ( vm-external1 etc..) are displayed, with a light color and '-' ( VM not defined in my Vagrantfile);*
+
+
+
 
 ### Appendix
 
@@ -532,7 +533,7 @@ end
 
 #### Example Vagrantfile type smart basic     
 
-This is configuration example for Vagrantfile very basic to start a simple VM in 'dcX'
+This is configuration example for Vagrantfile very basic to start a simple VM in 'dc2'
 
 
 ```ruby
@@ -664,8 +665,7 @@ ___________
 
 ###### Vagrantfile         
 
-This is configuration example for Vagrantfile relate multi machine with five VM);
-each with different provision and a common folder for resyncing;      
+This is configuration example for Vagrantfile relate multi machine with five VM, each with different provision and a common folder for resyncing;      
 It is advisable to define the names of the nodes ("vmvgrxx") all of the same length;
 
 
@@ -889,7 +889,7 @@ _______
 ..........
 ```
 
-*In this case the interface is still in a 'busy' state; wait a few tens of seconds or a minute and repeat the command;*
+*In this case the interface is still in a 'busy' state; try again after a few tens of seconds or a minute the command;*
 
 
 
