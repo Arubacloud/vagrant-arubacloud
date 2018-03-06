@@ -299,10 +299,11 @@ Bringing machine 'vmvgr01' up with 'arubacloud' provider...
 Go to Aruba Cloud dashboard to view machine instances.
 Dashboard url is different depending on the selected endpoint:
 
-|[DC1](https://admin.dc1.computing.cloud.it/Login.aspx)	    |[DC2](https://admin.dc2.computing.cloud.it/Login.aspx)	    |[DC3](https://admin.dc3.computing.cloud.it/Login.aspx)	    |[DC4](https://admin.dc4.computing.cloud.it/Login.aspx)	    |[DC5](https://admin.dc5.computing.cloud.it/Login.aspx)	    |[DC6](https://admin.dc6.computing.cloud.it/Login.aspx)	    |[DC8](https://admin.dc8.computing.cloud.it/Login.aspx)	    |
+|[DC1](https://admin.dc1.computing.cloud.it/Login.aspx)	    |[DC2](https://admin.dc2.computing.cloud.it/Login.aspx)	    |[DC3](https://admin.dc3.computing.cloud.it/Login.aspx)	    |[DC4](https://admin.dc4.computing.cloud.it/Login.aspx)	    |[DC5](https://admin.dc5.computing.cloud.it/Login.aspx)	    |[DC6](https://admin.dc6.computing.cloud.it/Login.aspx)	    |[DC8](https://admin.dc8.computing.cloud.it/Login.aspx)	    |   
 | --- | --- | --- | --- | --- | --- | --- |
 
-![cloud1](./cloud1.png)
+
+![cloud1](cloud1.png)
 
 
 ####  Reload VM
@@ -962,6 +963,6 @@ $ bundle exec vagrant up --provider=arubacloud
 
 #### License
 
-This code is released under the Apache 2.0 License.
+This code is released under the MIT License.
 
-Copyright (c) 2017 Aruba Cloud
+Copyright (c) 2018 Aruba Cloud
