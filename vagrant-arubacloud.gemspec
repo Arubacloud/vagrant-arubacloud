@@ -14,7 +14,6 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://www.github.com/arubacloud/vagrant-arubacloud'
   spec.license       = 'MIT'
 
-  spec.add_runtime_dependency 'fog', '~> 1.22'
   spec.add_runtime_dependency 'fog-arubacloud', '~> 0.0', '>= 0.0.6'
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake' , '~> 12.3'
