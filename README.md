@@ -112,6 +112,7 @@ $ vagrant plugin install vagrant-arubacloud
 | `dc4`     | France                                               |
 | `dc5`     | Deutschland                             			   |
 | `dc6`     | United Kingdom                            		|
+| `dc7`     | Italy 3                            		|
 | `dc8`     | Poland                    |
 
 
