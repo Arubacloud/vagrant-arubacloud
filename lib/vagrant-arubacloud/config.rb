@@ -10,6 +10,7 @@ module VagrantPlugins
       :dc4 => "https://api.dc4.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
       :dc5 => "https://api.dc5.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
       :dc6 => "https://api.dc6.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
+	  :dc7 => "https://api.dc7.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json",
       :dc8 => "https://api.dc8.computing.cloud.it/WsEndUser/v2.9/WsEndUser.svc/json"
     }
 
